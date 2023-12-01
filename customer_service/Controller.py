@@ -2,11 +2,12 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
+
 app = Flask(__name__)
 CORS(app)
 
 # SQLite Configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///customers.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://jad:jad@localhost:5432/project'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
