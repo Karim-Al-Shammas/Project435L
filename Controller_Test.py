@@ -1,6 +1,6 @@
 import json
 import pytest
-from app import app, db, Customer
+from Controller import app, db, Customer
 
 @pytest.fixture
 def client():
@@ -12,6 +12,12 @@ def client():
         db.create_all()
 
     yield client
+
+    with app.app_context():
+        Customer.query.filter_by(username='john_doe').delete()
+        Customer.query.filter_by(username='client1').delete()
+        Customer.query.filter_by(username='client2').delete()
+        db.session.commit()
 
 def test_register_customer(client):
     data = {
